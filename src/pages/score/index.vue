@@ -12,7 +12,7 @@
       </tr>
       <tr v-for="(item, index) in scores" :key="item" class="tr">
         <td class="td">{{index+1}}</td>
-        <td class="td td1">{{item.name}}</td>
+        <td class="td td1">{{item.name}}<p v-if="item.retake">重修</p></td>
         <td class="td">{{item.score}}</td>
         <td class="td">{{item.weight}}</td>
       </tr>
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import store from '../../store.js'
 import getAccount from '../../service/AccountService.js'
 import loginCheck from '../../service/LoginCheck.js'
 import MpFooter from 'mp-weui/packages/footer'
@@ -34,7 +33,8 @@ export default {
       scores: {
         name: '',
         score: '',
-        weight: ''
+        weight: '',
+        retake: false
       },
       scoreSortFlag: false,
       weightSortFlag: false
@@ -45,7 +45,6 @@ export default {
   },
   methods: {
     check () {
-      console.log(loginCheck())
       if (loginCheck()) {
         this.getScores()
       }
@@ -54,7 +53,7 @@ export default {
       let uid = getAccount()[0]
       let password = getAccount()[1]
       let _this = this
-      this.$http.get(store.state.url + '/history_scores', {
+      this.$http.post('/history_scores', {
         stuId: uid,
         password: password
       })

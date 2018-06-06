@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import store from '../../store.js'
 import zfLogin from '@/components/zf-login'
 import MpGrid from 'mp-weui/packages/grid'
 import MpFooter from 'mp-weui/packages/footer'
@@ -103,7 +102,7 @@ export default {
       })
       let uid = wx.getStorageSync('stuId')
       let password = wx.getStorageSync('password')
-      this.$http.get(store.state.url + '/teaching_evaluate', {
+      this.$http.post('/teaching_evaluate', {
         stuId: uid,
         password: password
       })

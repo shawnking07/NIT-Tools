@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import store from '../store.js'
 import MpAgree from 'mp-weui/packages/agree'
 export default {
   data () {
@@ -58,7 +57,7 @@ export default {
         mask: true, // 显示透明蒙层，防止触摸穿透,
         success: res => {}
       })
-      this.$http.get(store.state.url + '/login', {
+      this.$http.post('/login', {
         stuId: _this.stuId,
         password: _this.password
       })
