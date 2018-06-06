@@ -2,6 +2,8 @@
 
 > A Minitool for NIT
 
+## Powered By [mpvue](https://github.com/Meituan-Dianping/mpvue)
+
 ## Build Setup
 
 ``` bash
