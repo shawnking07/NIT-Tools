@@ -63,18 +63,24 @@ export default {
       })
         .then(function (response) {
           wx.hideLoading()
-          _this.name = response.data
+          wx.showToast({
+            title: response.data.board_msg, // 提示的内容,
+            icon: 'none', // 图标,
+            duration: 3000, // 延迟时间,
+            mask: true, // 显示透明蒙层，防止触摸穿透,
+            success: res => {}
+          })
+          _this.name = response.data.name
           wx.setStorageSync('stuId', _this.stuId)
           wx.setStorageSync('password', _this.password)
           wx.setStorageSync('name', _this.name)
           _this.$emit('listenIsLogin', true)
         })
-        .catch(function (e) {
-          console.log(e)
+        .catch(function (error) {
+          console.log(error)
           wx.hideLoading()
-          _this.password = ''
           wx.showToast({
-            title: '错误', // 提示的内容,
+            title: error.response.data.message, // 提示的内容,
             icon: 'none', // 图标,
             duration: 2000, // 延迟时间,
             mask: true, // 显示透明蒙层，防止触摸穿透,

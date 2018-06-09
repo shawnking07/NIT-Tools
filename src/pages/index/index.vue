@@ -4,7 +4,7 @@
       <p class="tips">请登录</p>
       <zf-login @listenIsLogin="checkLogin"></zf-login>
     </div>
-    <div v-if="isLogin">
+    <div v-else>
       <p class="tips">你好 {{name}}</p>
       <div class="weui-grids">
         <a :href="item.url" class="weui-grid" v-for="item in grids" :key="item.name">
@@ -41,12 +41,17 @@ export default {
     return {
       grids: [
         {
-          name: '课表',
+          name: '课表查询',
           icon: '../../static/baseline_table_chart_black_48dp.png',
+          url: '../course-table/main'
+        },
+        {
+          name: '考试查询',
+          icon: '../../static/baseline_schedule_black_48dp.png',
           url: ''
         },
         {
-          name: '成绩',
+          name: '成绩查询',
           icon: '../../static/baseline_list_black_48dp.png',
           url: '../score/main'
         }
@@ -116,10 +121,10 @@ export default {
             success: res => {}
           })
         })
-        .catch(function (response) {
+        .catch(function (error) {
           wx.hideLoading()
           wx.showToast({
-            title: '错误', // 提示的内容,
+            title: error.response.data.message, // 提示的内容,
             icon: 'none', // 图标,
             duration: 2000, // 延迟时间,
             mask: true, // 显示透明蒙层，防止触摸穿透,
@@ -143,6 +148,7 @@ export default {
 <style scoped>
 .weui-grid {
   height: 100px;
+  padding: 50rpx 25rpx;
 }
 .tips {
   font-size: 12;

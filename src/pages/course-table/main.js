@@ -8,7 +8,7 @@ app.$mount()
 export default {
   config: {
     enablePullDownRefresh: true,
-    navigationBarTitleText: '查询所有成绩',
+    navigationBarTitleText: '课表查询',
     backgroundTextStyle: 'dark'
   }
 }

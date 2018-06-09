@@ -5,14 +5,14 @@
         加权平均分: {{average}}
       </div>
       <tr class="tr">
-        <td class="td">No.</td>
+        <td class="td td0">No.</td>
         <td class="td td1">课程名</td>
         <td class="td clickable" @click="scoreSort()">分数</td>
         <td class="td clickable" @click="weightSort()">学分</td>
       </tr>
       <tr v-for="(item, index) in scores" :key="item" class="tr">
-        <td class="td">{{index+1}}</td>
-        <td class="td td1">{{item.name}}<p v-if="item.retake">重修</p></td>
+        <td class="td td0">{{index+1}}</td>
+        <td class="td td1">{{item.name}}<p v-if="item.retake" style="color:red">重修</p></td>
         <td class="td">{{item.score}}</td>
         <td class="td">{{item.weight}}</td>
       </tr>
@@ -58,15 +58,16 @@ export default {
         password: password
       })
         .then(function (response) {
-          _this.scores = response.data.message.scores.reverse()
-          _this.average = response.data.message.avg.toFixed(2)
+          _this.scores = response.data.scores.reverse()
+          _this.average = response.data.avg.toFixed(2)
+          wx.setStorageSync('scores', _this.scores)
+          wx.setStorageSync('avg', _this.average)
           wx.stopPullDownRefresh()
         })
-        .catch(function (e) {
+        .catch(function (error) {
           wx.stopPullDownRefresh()
-          console.log(e)
           wx.showToast({
-            title: '错误', // 提示的内容,
+            title: error.response.data.message, // 提示的内容,
             icon: 'none', // 图标,
             duration: 2000, // 延迟时间,
             mask: true, // 显示透明蒙层，防止触摸穿透,
@@ -126,12 +127,6 @@ export default {
       this.weightSortFlag = true
     }
   },
-  watch: {
-    scores: function () {
-      wx.setStorageSync('scores', this.scores)
-      wx.setStorageSync('avg', this.average)
-    }
-  },
   mounted: function () {
     this.check()
   },
@@ -143,7 +138,7 @@ export default {
 
 <style scoped>
 .score {
-  margin: 15px;
+  /* margin: 15px; */
   font-size: 90%;
 }
 .tr {
@@ -159,7 +154,10 @@ export default {
   width: 100%;
 }
 .td1 {
-  width: 400%;
+  width: 500%;
+}
+.td0 {
+  width: 50%;
 }
 .clickable {
   text-decoration: underline;

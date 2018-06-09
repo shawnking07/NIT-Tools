@@ -3,15 +3,16 @@ import App from './App'
 import Fly from 'flyio/dist/npm/wx'
 import '../static/app.css'
 import 'mp-weui/lib/style.css'
+import '../static/animate.css'
 
 var fly = new Fly()
 fly.interceptors.request.use((config, promise) => {
   // 给所有请求添加自定义header
-  config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+  // config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
   return config
 })
 
-fly.config.baseURL = 'http://localhost:5000/api'
+fly.config.baseURL = 'http://192.168.10.176:5000/api'
 
 Vue.prototype.$http = fly
 Vue.config.productionTip = false
