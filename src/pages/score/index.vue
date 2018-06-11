@@ -3,17 +3,20 @@
     <div class="score">
       <div class="GPA">
         加权平均分: {{average}}
+        <p>(只计算通过的课程)</p>
       </div>
       <tr class="tr">
         <td class="td td0">No.</td>
         <td class="td td1">课程名</td>
         <td class="td clickable" @click="scoreSort()">分数</td>
+        <td class="td">补考</td>
         <td class="td clickable" @click="weightSort()">学分</td>
       </tr>
       <tr v-for="(item, index) in scores" :key="item" class="tr">
         <td class="td td0">{{index+1}}</td>
         <td class="td td1">{{item.name}}<p v-if="item.retake" style="color:red">重修</p></td>
         <td class="td">{{item.score}}</td>
+        <td class="td">{{item.makeUpScore}}</td>
         <td class="td">{{item.weight}}</td>
       </tr>
     </div>
@@ -30,12 +33,7 @@ export default {
   data () {
     return {
       average: 0,
-      scores: {
-        name: '',
-        score: '',
-        weight: '',
-        retake: false
-      },
+      scores: {},
       scoreSortFlag: false,
       weightSortFlag: false
     }

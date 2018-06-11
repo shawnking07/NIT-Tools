@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="week">
-      <a class="day" v-for="(day, index) in week" :key="index" style="font-size:85%" :class="index==activeIndex?'a-active':''" @click="onDayClick(index)">{{day}}</a>
+      <a class="day" v-for="(day, index) in week" :key="index" :class="index==activeIndex?'a-active':''" @click="onDayClick(index)">{{day}}</a>
+      <a class="day" @click="onTodayClick">今天</a>
     </div>
     <div class="courses">
       <p v-if="!day_courses" class="no-course animated tada">今天没课 嘻嘻</p>
@@ -25,7 +26,7 @@ export default {
   data () {
     return {
       week: [
-        '周日', '周一', '周二', '周三', '周四', '周五', '周六'
+        '日', '一', '二', '三', '四', '五', '六'
       ],
       activeIndex: new Date().getDay(),
       day_courses: null
@@ -34,12 +35,21 @@ export default {
   methods: {
     onDayClick (index) {
       this.activeIndex = index
+    },
+    initialTable () {
+      this.day_courses = this.courses[this.activeIndex]
+    },
+    onTodayClick () {
+      this.activeIndex = new Date().getDay()
     }
   },
   watch: {
     activeIndex: function () {
-      this.day_courses = this.courses[this.activeIndex]
+      this.initialTable()
     }
+  },
+  mounted: function () {
+    this.initialTable()
   }
 }
 </script>
@@ -51,15 +61,17 @@ export default {
 .week {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 5px;
   background-color: white;
   margin-bottom: 5px;
   -moz-box-shadow:0px 0px 12px #8F8F8F;
   -webkit-box-shadow:0px 0px 12px #8F8F8F;
   box-shadow:0px 0px 12px #8F8F8F;
+  font-weight: bold;
 }
 .day {
   text-align: center;
+  padding: 5px;
 }
 .course-card {
   margin-top: 10px;
