@@ -68,7 +68,8 @@ export default {
             teacher: 'Mrs. Tomas',
             time: '2~5'
           }
-        ]
+        ],
+        []
       ]
 
     }
@@ -78,13 +79,10 @@ export default {
     courseCards
   },
   methods: {
-    check () {
-      loginCheck()
-    }
 
   },
   mounted: function () {
-    this.check()
+    loginCheck()
   },
   async onPullDownRefresh () {
     this.refresh()

@@ -2,10 +2,10 @@
   <div>
     <div class="week">
       <a class="day" v-for="(day, index) in week" :key="index" :class="index==activeIndex?'a-active':''" @click="onDayClick(index)">{{day}}</a>
-      <a class="day" @click="onTodayClick">今天</a>
+      <a class="day" @click="activeToday">今天</a>
     </div>
     <div class="courses">
-      <p v-if="!day_courses" class="no-course animated tada">今天没课 嘻嘻</p>
+      <p v-if="isCourseFree" class="no-course animated tada">今天没课 嘻嘻</p>
       <div v-for="(course, index) in day_courses" :key="index" class="course-card">
         <p class="course-name">{{course.name}}</p>
         <div class="inline">
@@ -28,8 +28,9 @@ export default {
       week: [
         '日', '一', '二', '三', '四', '五', '六'
       ],
-      activeIndex: new Date().getDay(),
-      day_courses: null
+      activeIndex: 0,
+      day_courses: [],
+      isCourseFree: false
     }
   },
   methods: {
@@ -39,17 +40,20 @@ export default {
     initialTable () {
       this.day_courses = this.courses[this.activeIndex]
     },
-    onTodayClick () {
+    activeToday () {
       this.activeIndex = new Date().getDay()
     }
   },
   watch: {
     activeIndex: function () {
       this.initialTable()
+      if (this.day_courses === undefined || this.day_courses.length === 0) this.isCourseFree = true
+      else this.isCourseFree = false
     }
   },
   mounted: function () {
     this.initialTable()
+    this.activeToday()
   }
 }
 </script>
