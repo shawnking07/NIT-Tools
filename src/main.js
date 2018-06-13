@@ -13,6 +13,7 @@ fly.interceptors.request.use((config, promise) => {
 })
 
 fly.config.baseURL = 'http://192.168.10.176:5000/api'
+fly.config.timeout = 8000
 
 Vue.prototype.$http = fly
 Vue.config.productionTip = false

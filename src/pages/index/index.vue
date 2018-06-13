@@ -48,7 +48,7 @@ export default {
         {
           name: '考试查询',
           icon: '../../static/baseline_schedule_black_48dp.png',
-          url: ''
+          url: '../exam/main'
         },
         {
           name: '成绩查询',
