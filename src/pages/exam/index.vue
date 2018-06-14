@@ -43,6 +43,7 @@ export default {
   methods: {
     check () {
       if (loginCheck()) {
+        this.exams = []
         this.getExam()
       }
     },
@@ -90,7 +91,7 @@ export default {
   height: 60%;
   width: 100%;
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
 }
 .td {
   padding: 10px;
