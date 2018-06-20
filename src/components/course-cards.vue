@@ -60,7 +60,9 @@ export default {
 
 <style scoped>
 .a-active {
-  color: green;
+  color: white;
+  border-radius: 5%;
+  background-color: green;
 }
 .week {
   display: flex;
