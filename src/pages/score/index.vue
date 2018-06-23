@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="score">
+    <div v-if="!scores" style="text-align:center">Loading...</div>
+    <div class="score" v-else>
       <div class="GPA">
         加权平均分: {{average}}
         <p>(只计算通过的课程)</p>
@@ -33,7 +34,7 @@ export default {
   data () {
     return {
       average: 0,
-      scores: {},
+      scores: null,
       scoreSortFlag: false,
       weightSortFlag: false
     }
@@ -42,7 +43,10 @@ export default {
     MpFooter
   },
   methods: {
-    check () {
+    init () {
+      this.scores = null
+      this.scoreSortFlag = false
+      this.weightSortFlag = false
       if (loginCheck()) {
         this.getScores()
       }
@@ -126,10 +130,10 @@ export default {
     }
   },
   mounted: function () {
-    this.check()
+    this.init()
   },
   async onPullDownRefresh () {
-    this.scores = {}
+    this.scores = null
     this.refresh()
   }
 }

@@ -17,7 +17,7 @@ import MpFooter from 'mp-weui/packages/footer'
 export default {
   data () {
     return {
-      courses: undefined
+      courses: null
     }
   },
   components: {

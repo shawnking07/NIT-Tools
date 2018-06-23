@@ -1,24 +1,27 @@
 <template>
   <div>
     <div class="exam">
-      <div v-if="isEmpty" class="msg no-exam animated tada">好像没有考试欸</div>
-      <div class="msg">
-        {{msg}}
+      <div v-if="!exams" style="text-align:center">Loading...</div>
+      <div v-else>
+        <div v-if="isEmpty" class="msg no-exam animated tada">好像没有考试欸</div>
+        <div class="msg">
+          {{msg}}
+        </div>
+        <tr class="tr">
+          <td class="td">No.</td>
+          <td class="td">课程名</td>
+          <td class="td">时间</td>
+          <td class="td">地点</td>
+          <td class="td">座位</td>
+        </tr>
+        <tr v-for="(item, index) in exams" :key="item" class="tr">
+          <td class="td">{{index+1}}</td>
+          <td class="td">{{item.name}}</td>
+          <td class="td">{{item.time}}</td>
+          <td class="td">{{item.location}}</td>
+          <td class="td">{{item.seat}}</td>
+        </tr>
       </div>
-      <tr class="tr">
-        <td class="td">No.</td>
-        <td class="td">课程名</td>
-        <td class="td">时间</td>
-        <td class="td">地点</td>
-        <td class="td">座位</td>
-      </tr>
-      <tr v-for="(item, index) in exams" :key="item" class="tr">
-        <td class="td">{{index+1}}</td>
-        <td class="td">{{item.name}}</td>
-        <td class="td">{{item.time}}</td>
-        <td class="td">{{item.location}}</td>
-        <td class="td">{{item.seat}}</td>
-      </tr>
     </div>
     <mp-footer text="Copyright © 2018 NIT-Tools 阿牛" />
   </div>
@@ -33,7 +36,7 @@ export default {
   data () {
     return {
       msg: '',
-      exams: [],
+      exams: null,
       isEmpty: false
     }
   },
@@ -43,7 +46,7 @@ export default {
   methods: {
     check () {
       if (loginCheck()) {
-        this.exams = []
+        this.exams = null
         this.getExam()
       }
     },
